@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  traceip:
+    image: traceipbackend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SERVER_IP: "127.0.0.1"
+    ports:
+      - "5000:80"
+volumes:
+  trace_ip_vol:
