@@ -1,4 +1,6 @@
 using StackExchange.Redis;
+using TraceIp.Services.Implementation;
+using TraceIp.Services.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,8 @@ builder.Services.AddSwaggerGen();
 
 ConnectionMultiplexer multiplexer = ConnectionMultiplexer.Connect("192.168.0.2:6379, password=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81, ConnectTimeout = 10000");
 builder.Services.AddSingleton<IConnectionMultiplexer>(multiplexer);
+builder.Services.AddScoped<ITraceIpService, TraceIpService>();
+builder.Services.AddScoped<IApiCountryService, ApiCountryService>();
 
 var app = builder.Build();
 

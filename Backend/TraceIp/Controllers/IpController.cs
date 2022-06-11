@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StackExchange.Redis;
+using TraceIp.Services.Interface;
 
 namespace TraceIp.Controllers
 {
@@ -8,10 +9,13 @@ namespace TraceIp.Controllers
     public class IpController : ControllerBase
     {
         private readonly IConnectionMultiplexer _redis;
+        private readonly ITraceIpService _traceIpService;
 
-        public IpController(IConnectionMultiplexer redis)
+        public IpController(IConnectionMultiplexer redis,
+            ITraceIpService traceIpService)
         {
             _redis = redis;
+            _traceIpService = traceIpService;
         }
 
         [HttpGet("testRedisRead")]
@@ -53,7 +57,7 @@ namespace TraceIp.Controllers
         {
             try
             {
-                return StatusCode(StatusCodes.Status200OK, "Hello world! " + ip);
+                return StatusCode(StatusCodes.Status200OK, _traceIpService.TraceIp(ip));
             }
             catch (Exception ex)
             {

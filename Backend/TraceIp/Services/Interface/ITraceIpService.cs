@@ -4,6 +4,6 @@ namespace TraceIp.Services.Interface
 {
     public interface ITraceIpService
     {
-        public ResponseDto TraceIp(string ip);
+        public ResponseTraceIpDto TraceIp(string ip);
     }
 }
