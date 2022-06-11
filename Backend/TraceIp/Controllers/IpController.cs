@@ -11,7 +11,7 @@ namespace TraceIp.Controllers
         {
             try
             {
-                return StatusCode(StatusCodes.Status200OK, "Hello world with docker!");
+                return StatusCode(StatusCodes.Status200OK, "Hello world with docker and redis!");
             }
             catch (Exception ex)
             {
