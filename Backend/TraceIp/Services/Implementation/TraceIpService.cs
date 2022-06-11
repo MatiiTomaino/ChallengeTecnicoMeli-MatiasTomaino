@@ -13,16 +13,25 @@ namespace TraceIp.Services.Implementation
             _apiCountryService = apiCountryService;
         }
 
-        public ResponseTraceIpDto TraceIp(string ip)
+        public TraceIpResponse TraceIp(string ip)
         {
-            ApiRestCountryResponse restCountryResponse = _apiCountryService.GetCountryInfoByIp(ip).Result;
+            DateTime? dateTimeRequest = DateTime.Now;
 
-            return new ResponseTraceIpDto()
+            ApiRestCountryResponse restCountryResponse = _apiCountryService.GetCountryInfoByIp(ip).Result;
+            Currency currency = restCountryResponse.Currencies!.FirstOrDefault()!;
+            string? currencyCode = currency.Code;
+            string? quotationCurrency = "";
+
+            return new TraceIpResponse()
             {
                 Name = restCountryResponse.CountryName,
-                Ip = ip,
+                IsoCode = restCountryResponse.CountryCode,
                 Languages = restCountryResponse.Location!.Languages,
-                Currency = restCountryResponse.Currencies!.FirstOrDefault(),
+                DateTimeRequest = dateTimeRequest,
+                ActualTime = DateTimeHelper.ConvertTimeZoneListToActualDateTimeList(restCountryResponse.Timezones!).Select(p => p.Value.ToShortTimeString() + $" ({p.Key})").ToList(),
+                Ip = ip,
+                Currency = currency,
+                CurrencyAndQuotation = currencyCode + $" (1 {currencyCode} = {quotationCurrency} U$S)",
                 EstimatedDistance = DistanceHelper.CalculatedDistanceToBuenosAires(restCountryResponse.Latitude, restCountryResponse.Longitude).ToString()
             };
         }
