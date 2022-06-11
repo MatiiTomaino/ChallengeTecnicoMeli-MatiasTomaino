@@ -9,6 +9,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+ConnectionMultiplexer multiplexer = ConnectionMultiplexer.Connect("192.168.0.2:6379, password=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81, ConnectTimeout = 10000");
+builder.Services.AddSingleton<IConnectionMultiplexer>(multiplexer);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,6 +28,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-var multiplexer = ConnectionMultiplexer.Connect("localhost:6379");
-builder.Services.AddSingleton<IConnectionMultiplexer>(multiplexer);

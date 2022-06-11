@@ -15,19 +15,19 @@ namespace TraceIp.Controllers
         }
 
         [HttpGet("testRedisRead")]
-        public async Task<IActionResult> TestRedis()
+        public async Task<IActionResult> TestRedis(string key)
         {
             var db = _redis.GetDatabase();
-            var foo = await db.StringGetAsync("foo");
-            return Ok(foo.ToString());
+            var value = await db.StringGetAsync(key);
+            return Ok(value.ToString());
         }
 
 
         [HttpGet("testRedisWrite")]
-        public async Task<IActionResult> TestRedis(string key, string value)
+        public  IActionResult TestRedis(string key, string value)
         {
             var db = _redis.GetDatabase();
-            if (await db.SetAddAsync(key, value))
+            if (db.StringSet(key, value))
             {
                 return StatusCode(StatusCodes.Status404NotFound, "Save ok.");
             }
