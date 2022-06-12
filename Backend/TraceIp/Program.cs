@@ -15,6 +15,7 @@ ConnectionMultiplexer multiplexer = ConnectionMultiplexer.Connect("192.168.0.2:6
 builder.Services.AddSingleton<IConnectionMultiplexer>(multiplexer);
 builder.Services.AddScoped<ITraceIpService, TraceIpService>();
 builder.Services.AddScoped<IApiCountryService, ApiCountryService>();
+builder.Services.AddScoped<ICurrencyService, CurrencyService>();
 
 var app = builder.Build();
 

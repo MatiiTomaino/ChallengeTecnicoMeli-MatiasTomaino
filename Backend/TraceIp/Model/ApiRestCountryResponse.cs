@@ -51,10 +51,10 @@ namespace TraceIp.Model
         public string? Zip { get; set; }
 
         [JsonProperty("latitude")]
-        public double Latitude { get; set; }
+        public double? Latitude { get; set; }
 
         [JsonProperty("longitude")]
-        public double Longitude { get; set; }
+        public double? Longitude { get; set; }
 
         [JsonProperty("location")]
         public Location? Location { get; set; }
@@ -63,7 +63,7 @@ namespace TraceIp.Model
     public class Location
     {
         [JsonProperty("geoname_id")]
-        public long GeonameId { get; set; }
+        public long? GeonameId { get; set; }
 
         [JsonProperty("capital")]
         public string? Capital { get; set; }
@@ -81,9 +81,9 @@ namespace TraceIp.Model
         public string? CountryFlagEmojiUnicode { get; set; }
 
         [JsonProperty("calling_code")]
-        public long CallingCode { get; set; }
+        public long? CallingCode { get; set; }
 
         [JsonProperty("is_eu")]
-        public bool IsEu { get; set; }
+        public bool? IsEu { get; set; }
     }
 }
