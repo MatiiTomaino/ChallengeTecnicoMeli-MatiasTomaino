@@ -1,4 +1,5 @@
-﻿using TraceIp.Helpers;
+﻿using TraceIp.Exceptions;
+using TraceIp.Helpers;
 using TraceIp.Model;
 using TraceIp.Services.Interface;
 
@@ -42,7 +43,7 @@ namespace TraceIp.Services.Implementation
                 };
             }
 
-            throw new Exception("The request fail.");
+            throw new BadRequestException();
         }
     }
 }
