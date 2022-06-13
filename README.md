@@ -1,20 +1,46 @@
 # ChallengeTecnicoMeli-MatiasTomaino
 
-# Execute solution
+# Technologies 
+1. .Net 6
+2. Redis
+3. Docker
+4. Docker-compose
+5. Unitest
 
-## For Linux:
+# Requirements
+1. Docker (https://docs.docker.com/engine/install/)
+2. Postman (https://www.postman.com/)
 
-1. Move to path => Backend/TraceIp
-2. Run command => ./trace_ip_linux.sh
+# APIs available
+- TraceIp (Ex: https://localhost:5000/Ip/traceIp?ip=128.201.132.0)
+    - Get country information from Ip.
+- GetFurthestDistance (Ex: https://localhost:5000/Ip/GetFurthestDistance)
+    - Get the furthest distance from all request
+- GetClosestDistance (Ex: https://localhost:5000/Ip/GetClosestDistance)
+    - Get the closest distance from all request
+- GetAverageDistance (Ex: https://localhost:5000/Ip/GetAverageDistance)
+    - Get average distance from all requests.
+
+# Turn on ther server 
+
+First, Download the repository from github
+
+### For Linux / Mac:
+
+-  Move to path => Backend/TraceIp
+-  Run command => ./trace_ip_linux.sh 
 
 Note: if command doesnt work, run chmod +x trace_ip_linux.sh
 
-## For Windows:
+### For Windows:
 
-1. Move to path => Backend/TraceIp
-2. Run command => ./trace_ip_windows.ps1
+- Move to path => Backend/TraceIp
+- Run command => ./trace_ip_windows.ps1
 
-# Technologies 
+# How Test Api?
+1. Postman
+2. Curl
+3. Index.html
 
-1. .Net 6
-2. Docker
+# Documentation
+View Documentation.pdf file in repository.

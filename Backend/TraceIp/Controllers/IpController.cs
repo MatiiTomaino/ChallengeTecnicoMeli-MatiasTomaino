@@ -8,13 +8,10 @@ namespace TraceIp.Controllers
     [Route("[controller]")]
     public class IpController : ControllerBase
     {
-        private readonly IRedisService _redis;
         private readonly ITraceIpService _traceIpService;
 
-        public IpController(IRedisService redis,
-            ITraceIpService traceIpService)
+        public IpController(ITraceIpService traceIpService)
         {
-            _redis = redis;
             _traceIpService = traceIpService;
         }
 
