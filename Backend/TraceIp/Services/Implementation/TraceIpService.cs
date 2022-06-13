@@ -101,17 +101,60 @@ namespace TraceIp.Services.Implementation
 
         public string GetAverageDistance()
         {
-            return _redis.GetValueFromKey(ConstStringHelper.AverageDistance).Result.ToString();
+            List<RequestSummary>? requestSummaryList = _redis.GetRequestSummary()?.Items ?? null;
+
+            if (requestSummaryList?.Any() ?? false)
+            {
+                int? requestCount = requestSummaryList!.Sum(p => p.RequestCount);
+                double? totalDistance = 0;
+                requestSummaryList.ForEach(p => totalDistance += p.RequestCount * p.Distance);
+
+                return (Math.Round((decimal)(Convert.ToDecimal(totalDistance)/requestCount), 2)).ToString();
+            }
+            else
+            {
+                throw new WithoutRequestException();
+            }
         }
 
-        public string GetClosestDistance()
+        public StatsResponse GetClosestDistance()
         {
-            return _redis.GetValueFromKey(ConstStringHelper.ClosestDistance).Result.ToString();
+            List<RequestSummary>? requestSummaryList = _redis.GetRequestSummary()?.Items ?? null;
+
+            if (requestSummaryList?.Any() ?? false)
+            {
+                RequestSummary item = requestSummaryList!.OrderBy(p => p.Distance)!.FirstOrDefault()!;
+
+                return new StatsResponse
+                {
+                    CountryName = item!.CountryName,
+                    Value = item.Distance
+                };
+            }
+            else
+            {
+                throw new WithoutRequestException();
+            }
         }
 
-        public string GetFurthestDistance()
+        public StatsResponse GetFurthestDistance()
         {
-            return _redis.GetValueFromKey(ConstStringHelper.FurthestDistance).Result.ToString();
+            List<RequestSummary>? requestSummaryList = _redis.GetRequestSummary()?.Items ?? null;
+
+            if (requestSummaryList?.Any() ?? false)
+            {
+                RequestSummary item = requestSummaryList!.OrderBy(p => p.Distance)!.LastOrDefault()!;
+
+                return new StatsResponse
+                {
+                    CountryName = item!.CountryName,
+                    Value = item.Distance
+                };
+            }
+            else
+            {
+                throw new WithoutRequestException();
+            }
         }
     }
 }

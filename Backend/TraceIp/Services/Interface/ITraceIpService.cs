@@ -6,7 +6,7 @@ namespace TraceIp.Services.Interface
     {
         public TraceIpResponse TraceIp(string ip);
         public string GetAverageDistance();
-        public string GetClosestDistance();
-        public string GetFurthestDistance();
+        public StatsResponse GetClosestDistance();
+        public StatsResponse GetFurthestDistance();
     }
 }
