@@ -19,35 +19,11 @@ namespace TraceIp.Controllers
             _traceIpService = traceIpService;
         }
 
-        [HttpGet("testRedisRead")]
-        public async Task<IActionResult> TestRedis(string key)
-        {
-            return Ok(await _redis.GetValueFromKey(key));
-        }
-
-        [HttpGet("testRedisSummaryRead")]
-        public IActionResult TestRedisSummary()
-        {
-            return StatusCode(StatusCodes.Status202Accepted, JsonConvert.SerializeObject(_redis.GetRequestSummary()) ?? "Empty request.");
-        }
-
-        [HttpGet("testRedisCacheRead")]
-        public IActionResult TestRedisCache()
-        {
-            return StatusCode(StatusCodes.Status202Accepted, JsonConvert.SerializeObject(_redis.GetRequestCache()) ?? "Empty request.");
-        }
-
-        [HttpGet("testRedisWrite")]
-        public  IActionResult TestRedis(string key, string value)
-        {
-            if (_redis.Save(key, value))
-            {
-                return StatusCode(StatusCodes.Status404NotFound, "Save ok.");
-            }
-
-            return StatusCode(StatusCodes.Status404NotFound, "The key already exist.");
-        }
-
+        /// <summary>
+        /// Get country information from an ip
+        /// </summary>
+        /// <param name="ip">IP which information is to be searched</param>
+        /// <returns></returns>
         [HttpGet("traceIp")]
         public IActionResult TraceIp(string ip)
         {
@@ -65,6 +41,10 @@ namespace TraceIp.Controllers
             }
         }
 
+        /// <summary>
+        /// Get the furthest distance from all request
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("GetFurthestDistance")]
         public IActionResult GetFurthestDistance()
         {
@@ -72,12 +52,20 @@ namespace TraceIp.Controllers
             {
                 return StatusCode(StatusCodes.Status200OK, _traceIpService.GetFurthestDistance());
             }
+            catch (WithoutRequestException ex)
+            {
+                return StatusCode(StatusCodes.Status204NoContent, ex.Message);
+            }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
+        /// <summary>
+        /// Get the closest distance from all request
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("GetClosestDistance")]
         public IActionResult GetClosestDistance()
         {
@@ -85,18 +73,30 @@ namespace TraceIp.Controllers
             {
                 return StatusCode(StatusCodes.Status200OK, _traceIpService.GetClosestDistance());
             }
+            catch (WithoutRequestException ex)
+            {
+                return StatusCode(StatusCodes.Status204NoContent, ex.Message);
+            }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
+        /// <summary>
+        /// Get average distance from all requests.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("GetAverageDistance")]
         public IActionResult GetAverageDistance()
         {
             try
             {
                 return StatusCode(StatusCodes.Status200OK, _traceIpService.GetAverageDistance());
+            }
+            catch (WithoutRequestException ex)
+            {
+                return StatusCode(StatusCodes.Status204NoContent, ex.Message);
             }
             catch (Exception ex)
             {
