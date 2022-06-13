@@ -40,7 +40,8 @@ Note: if command doesnt work, run chmod +x trace_ip_linux.sh
 # How Test Api?
 1. Postman
 2. Curl
-3. Html (http://localhost:5000/swagger/index.html)
+3. Swagger (http://localhost:5000/swagger/index.html)
+4. Html (Frontend/index.html)
 
 For more details view documentation
 
