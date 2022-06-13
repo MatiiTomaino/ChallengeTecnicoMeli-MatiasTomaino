@@ -14,7 +14,6 @@ namespace TraceIp.Model
         public List<string>? Timezones { get; set; }
     }
 
-
     /// <summary>
     /// response´s model from http://api.ipapi.com/api/
     /// </summary>

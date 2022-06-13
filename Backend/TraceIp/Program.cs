@@ -16,6 +16,7 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(multiplexer);
 builder.Services.AddScoped<ITraceIpService, TraceIpService>();
 builder.Services.AddScoped<IApiCountryService, ApiCountryService>();
 builder.Services.AddScoped<ICurrencyService, CurrencyService>();
+builder.Services.AddScoped<IRedisService, RedisService>();
 
 var app = builder.Build();
 

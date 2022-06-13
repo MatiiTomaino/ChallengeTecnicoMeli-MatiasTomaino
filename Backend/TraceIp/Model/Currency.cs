@@ -2,7 +2,7 @@
 
 namespace TraceIp.Model
 {
-    public partial class Currency
+    public class Currency
     {
         [JsonProperty("code")]
         public string? Code { get; set; }
