@@ -83,7 +83,7 @@ namespace TraceIp.Services.Implementation
                     IsoCode = restCountryResponse.CountryCode,
                     Languages = restCountryResponse.Location!.Languages,
                     DateTimeRequest = dateTimeRequest,
-                    ActualTime = DateTimeHelper.ConvertTimeZoneListToActualDateTimeList(restCountryResponse.Timezones!).Select(p => p.Value.ToShortTimeString() + $" ({p.Key})").ToList(),
+                    ActualTime = DateTimeHelper.ConvertTimeZoneListToActualDateTimeList(restCountryResponse.Timezones!, DateTime.Now).Select(p => p.Value.ToShortTimeString() + $" ({p.Key})").ToList(),
                     Ip = ip,
                     Currency = currency,
                     CurrencyAndQuotation = currencyCode + $" (1 {currencyCode} = {quotationCurrency} USD)",

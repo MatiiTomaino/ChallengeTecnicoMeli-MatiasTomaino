@@ -6,11 +6,11 @@
         /// Convert a string's list of timezones in a dictionary with the actual time in the timezone
         /// </summary>
         /// <param name="timezones">string's list of timezones</param>
+        /// <param name="dateTimeRequest">request's datetime</param>
         /// <returns></returns>
-        public static IDictionary<string, DateTime> ConvertTimeZoneListToActualDateTimeList(List<string> timezones)
+        public static IDictionary<string, DateTime> ConvertTimeZoneListToActualDateTimeList(List<string> timezones, DateTime dateTimeRequest)
         {
             Dictionary<string, DateTime> datetimeDictionary = new Dictionary<string, DateTime>();
-            DateTime dateTimeRequest = DateTime.Now;
 
             foreach (string timezone in timezones)
             {

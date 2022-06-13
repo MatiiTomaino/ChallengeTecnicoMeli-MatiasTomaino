@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using TraceIp.Exceptions;
 using TraceIp.Services.Interface;
 
