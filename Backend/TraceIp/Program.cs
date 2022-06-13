@@ -11,7 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-ConnectionMultiplexer multiplexer = ConnectionMultiplexer.Connect("localhost:6379, password=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81, ConnectTimeout = 10000");
+ConnectionMultiplexer multiplexer = ConnectionMultiplexer.Connect("http://127.0.0.1:6379, password=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81, ConnectTimeout = 10000");
 builder.Services.AddSingleton<IConnectionMultiplexer>(multiplexer);
 builder.Services.AddScoped<ITraceIpService, TraceIpService>();
 builder.Services.AddScoped<IApiCountryService, ApiCountryService>();
