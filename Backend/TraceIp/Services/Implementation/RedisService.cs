@@ -37,10 +37,10 @@ namespace TraceIp.Services.Implementation
         public IEnumerable<ApiRestCountryResponse>? GetRequestCache()
         {
             var db = _redis.GetDatabase();
-            var value = db.SetMembers(ConstStringHelper.RequestCache);
-            if (value?.Any() ?? false)
+            var value = db.SetMembersAsync(ConstStringHelper.RequestCache);
+            if (value != null && (value.Result?.Any() ?? false))
             {
-                IEnumerable<ApiRestCountryResponse>? result = value!.Select(p => JsonConvert.DeserializeObject<ApiRestCountryResponse>(p!));
+                IEnumerable<ApiRestCountryResponse>? result = value.Result.Select(p => JsonConvert.DeserializeObject<ApiRestCountryResponse>(p!));
                 return result;
             }
 
@@ -50,11 +50,11 @@ namespace TraceIp.Services.Implementation
         public RequestSummaryList? GetRequestSummary()
         {
             var db = _redis.GetDatabase();
-            var value = db.StringGet(ConstStringHelper.RequestSummary);
+            var value = db.StringGetAsync(ConstStringHelper.RequestSummary);
 
-            if (value.HasValue) 
+            if (value != null && value.Result.HasValue) 
             {
-                return JsonConvert.DeserializeObject<RequestSummaryList>(value!.ToString()!);
+                return JsonConvert.DeserializeObject<RequestSummaryList>(value.Result!.ToString()!);
             }
 
             return null;
