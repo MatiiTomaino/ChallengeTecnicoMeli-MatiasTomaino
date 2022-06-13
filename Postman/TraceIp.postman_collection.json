@@ -1,0 +1,62 @@
+{
+	"info": {
+		"_postman_id": "d47bc9c3-2fbd-40df-afd5-950fba98a825",
+		"name": "TraceIp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "TraceIp",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/Ip/traceip?ip=83.44.196.93",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"Ip",
+						"traceip"
+					],
+					"query": [
+						{
+							"key": "ip",
+							"value": "83.44.196.93"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetFurthestDistance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5000/Ip/GetFurthestDistance"
+			},
+			"response": []
+		},
+		{
+			"name": "GetClosestDistance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5000/Ip/GetClosestDistance"
+			},
+			"response": []
+		},
+		{
+			"name": "GetAverageDistance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5000/Ip/GetAverageDistance"
+			},
+			"response": []
+		}
+	]
+}
