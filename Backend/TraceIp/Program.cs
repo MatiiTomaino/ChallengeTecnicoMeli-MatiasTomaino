@@ -11,7 +11,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-ConnectionMultiplexer multiplexer = ConnectionMultiplexer.Connect("http://127.0.0.1:6379, password=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81, ConnectTimeout = 10000");
+string hostRedis = "cache"; 
+string portRedis = "6379";
+
+ConfigurationOptions option = new ConfigurationOptions
+{
+    AbortOnConnectFail = false,
+    EndPoints = { hostRedis, portRedis },
+    Password = "eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81",
+    SyncTimeout = 500000 
+};
+
+ConnectionMultiplexer multiplexer = ConnectionMultiplexer.Connect(option);
 builder.Services.AddSingleton<IConnectionMultiplexer>(multiplexer);
 builder.Services.AddScoped<ITraceIpService, TraceIpService>();
 builder.Services.AddScoped<IApiCountryService, ApiCountryService>();
