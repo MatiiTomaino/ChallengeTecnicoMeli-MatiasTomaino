@@ -8,6 +8,7 @@ namespace TraceIp.Services.Implementation
     {
         public async Task<double> ConvertCurrencyToUSD(string currencyCode)
         {
+            Console.WriteLine("Start Api Currency");
             CurrencyServicesResponse? currencyServiceResponse = new CurrencyServicesResponse();
 
             using (var httpClient = new HttpClient())
@@ -20,6 +21,7 @@ namespace TraceIp.Services.Implementation
                     currencyServiceResponse = JsonConvert.DeserializeObject<CurrencyServicesResponse>(apiResponse);
                 }
 
+                Console.WriteLine("End Api Currency");
                 return currencyServiceResponse!.ConversionRate;
             }
         }

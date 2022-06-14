@@ -10,20 +10,31 @@
         /// <returns></returns>
         public static IDictionary<string, DateTime> ConvertTimeZoneListToActualDateTimeList(List<string> timezones, DateTime dateTimeRequest)
         {
+            Console.WriteLine("Start convert timezones");
             Dictionary<string, DateTime> datetimeDictionary = new Dictionary<string, DateTime>();
 
-            foreach (string timezone in timezones)
+            if (timezones?.Any() ?? false)
             {
-                // In case you don't know what the key is:
-                List<TimeZoneInfo> allTimeZones = TimeZoneInfo.GetSystemTimeZones().ToList();
+                foreach (string timezone in timezones)
+                {
+                    if (timezone != null)
+                    {
+                        // In case you don't know what the key is:
+                        List<TimeZoneInfo> allTimeZones = TimeZoneInfo.GetSystemTimeZones().ToList();
 
-                TimeZoneInfo? timeZoneInfo = allTimeZones.Where(p => p.DisplayName.Split("(")[1].Split(")")[0] == timezone).FirstOrDefault();
+                        TimeZoneInfo? timeZoneInfo = allTimeZones.Where(p => p.DisplayName.Split("(")[1].Split(")")[0] == timezone).FirstOrDefault();
 
-                DateTime actualDatetime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(dateTimeRequest, timeZoneInfo!.Id);
+                        if (timeZoneInfo != null)
+                        {
+                            DateTime actualDatetime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(dateTimeRequest, timeZoneInfo!.Id);
 
-                datetimeDictionary.Add(timezone, actualDatetime);
-            };
+                            datetimeDictionary.Add(timezone!, actualDatetime);
+                        }
+                    }
+                };
+            }
 
+            Console.WriteLine("End convert timezones");
             return datetimeDictionary;
         }
     }

@@ -18,6 +18,7 @@ namespace TraceIp.Services.Implementation
 
         public async Task<ApiRestCountryResponse> GetCountryInfoByIp(string ip)
         {
+            Console.WriteLine("Looking for Ip in external API");
             ApiRestCountryResponse? countryResponse = new ApiRestCountryResponse();
             ApiRestCountryResponseBase? countryResponseBase = new ApiRestCountryResponseBase();
 
@@ -43,6 +44,7 @@ namespace TraceIp.Services.Implementation
                 countryResponse.Timezones = countryResponseBase!.Timezones;
             }
 
+            Console.WriteLine("End call external API");
             return countryResponse;
         }
     }

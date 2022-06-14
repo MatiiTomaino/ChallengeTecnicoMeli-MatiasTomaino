@@ -22,6 +22,7 @@ namespace TraceIp.Services.Implementation
 
         private void AddRequestCache(string ip, ApiRestCountryResponse apiRestCountryResponse)
         {
+            Console.WriteLine("Start add request to cache");
             List<ApiRestCountryResponse> cacheList = _redis.GetRequestCache()?.ToList() ?? new List<ApiRestCountryResponse>();
 
             ApiRestCountryResponse? register = cacheList?.FirstOrDefault(p => p.Ip == ip) ?? null;
@@ -30,10 +31,12 @@ namespace TraceIp.Services.Implementation
             {
                 _redis.SetRequestCache(apiRestCountryResponse!);
             }
+            Console.WriteLine("End add request to cache");
         }
 
         private void AddRequestSummary(ApiRestCountryResponse apiResponse, double distance)
         {
+            Console.WriteLine("Start add request to summary");
             RequestSummaryList requestSummaryList = _redis.GetRequestSummary() ?? new RequestSummaryList()
             {
                 Items = new List<RequestSummary>()
@@ -58,15 +61,27 @@ namespace TraceIp.Services.Implementation
             }
 
             _redis.SetRequestSummary(requestSummaryList!);
+            Console.WriteLine("End add request to summary");
         }
 
         private ApiRestCountryResponse? GetCountryCache(string ip)
         {
-            return _redis.GetRequestCache()?.FirstOrDefault(p => p?.Ip == ip) ?? null;
+            Console.WriteLine("Looking for Ip in cache");
+            ApiRestCountryResponse? apiRestCountryResponse = _redis.GetRequestCache()?.FirstOrDefault(p => p?.Ip == ip);
+
+            if (apiRestCountryResponse != null)
+            {
+                Console.WriteLine("Ip exists in cache");
+                return apiRestCountryResponse;
+            }
+
+            Console.WriteLine("Ip not exists in cache");
+            return null;
         }
          
         public TraceIpResponse TraceIp(string ip)
         {
+            Console.WriteLine("Start Trace IP: " + ip);
             DateTime? dateTimeRequest = DateTime.Now;
             ApiRestCountryResponse restCountryResponse = GetCountryCache(ip) ?? _apiCountryService.GetCountryInfoByIp(ip).Result;
 
@@ -93,9 +108,11 @@ namespace TraceIp.Services.Implementation
                 AddRequestCache(ip, restCountryResponse);
                 AddRequestSummary(restCountryResponse, distance);
 
+                Console.WriteLine("End Trace IP: " + ip);
                 return result;
             }
 
+            Console.WriteLine("Bad request");
             throw new BadRequestException();
         }
 
